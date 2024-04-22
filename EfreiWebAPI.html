@@ -1,0 +1,60 @@
+<html><head><title>undefined</title><link rel="stylesheet" href="https://dl.etna-alternance.net/sujets/prism.css"><link rel="stylesheet" href="https://dl.etna-alternance.net/sujets/sujet.css"><script type="text/javascript" src="https://dl.etna-alternance.net/sujets/prism.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script type="text/javascript" src="https://kit.fontawesome.com/2128552f47.js"></script><meta charset="UTF-8"></head><body><div class="panel-heading panel-module">Modalités</div><div class="panel-body"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dépôt</td>
+<td>Créé un GitHub</td>
+</tr>
+<tr>
+<td>Dossier</td>
+<td>API/</td>
+</tr>
+<tr>
+<td>Correction</td>
+<td>Soutenance</td>
+</tr>
+<tr>
+<td>Durée</td>
+<td>1 jour</td>
+</tr>
+<tr>
+<td>Effectif</td>
+<td>Seul / Groupe de 2</td>
+</tr>
+</tbody></table>
+</div><div class="panel-heading panel-objective">Objectifs</div><div class="panel-body"><ul>
+<li>Réaliser une api</li>
+<li>Utiliser django pour formater une api</li>
+<li>réaliser un formatage json pour les réponses de l'api</li>
+</ul>
+</div><div class="panel-heading panel-project">Consignes</div><div class="panel-body"><p>En python Django réaliser une api renvoyant les données des tables donnée dans&nbsp;pokedex.sql<br>Le site doit utiliser mariadb, des points bonus seront accordés si un dockerfile et un docker-compose sont dans le rendu afin de pouvoir automatiser le déploiement sur le port 8042.</p>
+<p>Réaliser les endpoints suivant :</p>
+<div class="code-toolbar"><pre class=" language-markup"><code class=" language-markup">/api/items/{id item}
+
+/api/moves/{id moves}
+
+/api/pokemon/{id pokemon}
+
+/api/pokemon/{name pokemon}
+
+/api/pokemon/types/{identifier pokemon}
+
+----------------------------------------------------------------------------------------
+
+
+/api/connexion
+/api/register
+
+-----------------------------------------------------------------------------------------
+
+/api/mesPokemons (auth)
+
+
+/api/role (auth admin)
+/api/admin/users (auth admin)</code></pre><div class="toolbar"><div class="toolbar-item"><button>Copy</button></div></div></div><p>Dans le cas d'un GET de données la réponses doit être formatée en json.<br>Dans le cas d'un POST les données doivent être ajouter a la base de données.<br>Dans le cas d'un DELETE les données doivent être effacer en base de données.</p>
+<p>De plus vous devrez faire un JWT pour la connexion ainsi que la mise en place de rôle pour certaine routes.</p>
+</div></body></html>
