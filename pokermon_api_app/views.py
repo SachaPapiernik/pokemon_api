@@ -64,7 +64,6 @@ def move_detail(request, id):
 
 @require_GET
 def pokemon_list(request):
-    # Fetch all Pokemon entries
     pokemons = Pokemon.objects.all()
     pokemons_list = [model_to_dict(pokemon) for pokemon in pokemons]
     return JsonResponse(pokemons_list, safe=False)

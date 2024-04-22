@@ -26,4 +26,7 @@ urlpatterns = [
 
     path('moves/', views.move_list, name='move_list'),
     path('moves/<int:id>/', views.move_detail, name='move_detail'),
+
+    path('pokemons/', views.pokemon_list, name='pokemon_list'),
+    path('pokemons/<int:id>/', views.pokemon_detail, name='pokemon_detail'),
 ]
