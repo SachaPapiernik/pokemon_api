@@ -31,3 +31,16 @@ class Move(models.Model):
 
     class Meta:
         db_table = 'moves'
+
+class Pokemon(models.Model):
+    id = models.AutoField(primary_key=True)
+    identifier = models.CharField(max_length=79)
+    species_id = models.IntegerField(null=True, blank=True)
+    height = models.IntegerField()
+    weight = models.IntegerField()
+    base_experience = models.IntegerField()
+    order = models.IntegerField()
+    is_default = models.BooleanField()
+
+    class Meta:
+        db_table = 'pokemon'
