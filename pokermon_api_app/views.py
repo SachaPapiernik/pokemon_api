@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Q
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_http_methods, require_GET
 from .models import Item, Move, Pokemon
@@ -69,8 +70,19 @@ def pokemon_list(request):
     return JsonResponse(pokemons_list, safe=False)
 
 @require_http_methods(["GET", "PUT", "DELETE"])
-def pokemon_detail(request, id):
-    pokemon = get_object_or_404(Pokemon, pk=id)
+def pokemon_detail(request):
+    identifier = request.GET.get('id')
+    name = request.GET.get('name')
+
+    if identifier:
+        if identifier.isdigit():
+            pokemon = get_object_or_404(Pokemon, pk=identifier)
+        else:
+            pokemon = get_object_or_404(Pokemon, Q(name__iexact=identifier))
+    elif name:
+        pokemon = get_object_or_404(Pokemon, Q(name__iexact=name))
+    else:
+        return JsonResponse({'error': 'Please provide either an ID or a name'}, status=400)
 
     if request.method == 'GET':
         return JsonResponse(model_to_dict(pokemon))
