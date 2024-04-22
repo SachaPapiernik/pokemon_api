@@ -71,26 +71,24 @@ def pokemon_list(request):
 
 @require_http_methods(["GET", "PUT", "DELETE"])
 def pokemon_detail(request):
-    identifier = request.GET.get('id')
     name = request.GET.get('name')
+    id = request.GET.get('id')
 
-    if identifier:
-        if identifier.isdigit():
-            pokemon = get_object_or_404(Pokemon, pk=identifier)
+    if id:
+        if id.isdigit():
+            pokemon = get_object_or_404(Pokemon, pk=id)
         else:
-            pokemon = get_object_or_404(Pokemon, Q(name__iexact=identifier))
+            return JsonResponse({'error': 'Invalid ID'}, status=400)
     elif name:
-        pokemon = get_object_or_404(Pokemon, Q(name__iexact=name))
+        pokemon = get_object_or_404(Pokemon, identifier__iexact=name)
     else:
         return JsonResponse({'error': 'Please provide either an ID or a name'}, status=400)
 
     if request.method == 'GET':
         return JsonResponse(model_to_dict(pokemon))
-
     elif request.method == 'DELETE':
         pokemon.delete()
         return HttpResponse(status=204)
-    
     elif request.method == 'PUT':
         data = json.loads(request.body)
         for field, value in data.items():
