@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_http_methods, require_GET
-from .models import Item, Move
+from .models import Item, Move, Pokemon
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
 import json
@@ -60,3 +60,29 @@ def move_detail(request, id):
         move.save()
         return JsonResponse(model_to_dict(move))
 
+# Pokemon
+
+@require_GET
+def pokemon_list(request):
+    # Fetch all Pokemon entries
+    pokemons = Pokemon.objects.all()
+    pokemons_list = [model_to_dict(pokemon) for pokemon in pokemons]
+    return JsonResponse(pokemons_list, safe=False)
+
+@require_http_methods(["GET", "PUT", "DELETE"])
+def pokemon_detail(request, id):
+    pokemon = get_object_or_404(Pokemon, pk=id)
+
+    if request.method == 'GET':
+        return JsonResponse(model_to_dict(pokemon))
+
+    elif request.method == 'DELETE':
+        pokemon.delete()
+        return HttpResponse(status=204)
+    
+    elif request.method == 'PUT':
+        data = json.loads(request.body)
+        for field, value in data.items():
+            setattr(pokemon, field, value)
+        pokemon.save()
+        return JsonResponse(model_to_dict(pokemon))
