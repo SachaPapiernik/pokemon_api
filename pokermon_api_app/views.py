@@ -36,7 +36,7 @@ def item_detail(request, id):
 # Move
 
 @require_GET
-def item_list(request):
+def move_list(request):
     # Fetch all items
     items = Move.objects.all()
     items_list = [model_to_dict(item) for item in items]
